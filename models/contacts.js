@@ -3,7 +3,6 @@ const path = require('path');
 const { randomUUID } = require('crypto');
 
 const contactsPath = path.join(__dirname, './contacts.json');
-// const contactsPath = path.resolve('models/contacts.json');
 
 const listContacts = async () => {
   return JSON.parse(await fs.readFile(contactsPath));
@@ -17,9 +16,7 @@ const getContactById = async contactId => {
 
 const removeContact = async contactId => {
   const contactsList = await listContacts();
-  const index = contactsList.findIndex(
-    contact => String(contact.id) === contactId
-  );
+  const index = contactsList.findIndex(contact => contact.id === contactId);
 
   if (index === -1) {
     return null;
@@ -46,9 +43,7 @@ const addContact = async body => {
 const updateContact = async (contactId, body) => {
   const contactsList = await listContacts();
 
-  const index = contactsList.findIndex(
-    contact => String(contact.id) === contactId
-  );
+  const index = contactsList.findIndex(contact => contact.id === contactId);
 
   if (index === -1) {
     return null;

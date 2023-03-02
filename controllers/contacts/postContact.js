@@ -4,9 +4,9 @@ const postContact = async (req, res, next) => {
   try {
     const { name, email, phone } = req.body;
 
-    if (!name || !email || !phone) {
-      return res.status(400).json({ message: 'missing required name field' });
-    }
+    // if (!name || !email || !phone) {
+    //   return res.status(400).json({ message: 'missing required name field' });
+    // }
 
     const contact = await addContact({ name, email, phone });
 

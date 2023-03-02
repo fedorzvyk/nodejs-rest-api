@@ -1,6 +1,6 @@
 const { updateContact } = require('../../models/contacts');
 
-const putContacts = async (req, res, next) => {
+const updateById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const { name, phone, email } = req.body;
@@ -8,6 +8,7 @@ const putContacts = async (req, res, next) => {
     if (!name && !phone && !email) {
       return res.status(400).json({ message: 'missing fields' });
     }
+
     const contact = await updateContact(contactId, req.body);
 
     if (!contact) {
@@ -20,4 +21,4 @@ const putContacts = async (req, res, next) => {
   }
 };
 
-module.exports = putContacts;
+module.exports = updateById;
