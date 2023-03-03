@@ -8,9 +8,7 @@ const getById = async (req, res, next) => {
     if (!contact) {
       return res.status(404).json({ message: 'Not found' });
     }
-    res.status(200).json({
-      contact,
-    });
+    res.status(200).json(contact);
   } catch (error) {
     next(error);
   }
