@@ -1,5 +1,4 @@
 const { updateContact } = require('../../models/contacts');
-const contactsSchema = require('../../schemas/contactsSchema');
 
 const updateById = async (req, res, next) => {
   try {
@@ -8,11 +7,6 @@ const updateById = async (req, res, next) => {
 
     if (!name && !phone && !email) {
       return res.status(400).json({ message: 'missing fields' });
-    }
-
-    const { error } = contactsSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({ message: error.message });
     }
 
     const contact = await updateContact(contactId, req.body);
