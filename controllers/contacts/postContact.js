@@ -1,14 +1,25 @@
-const { addContact } = require('../../models/contacts');
+// const { addContact } = require('../../models/contacts');
+
+const Contact = require('../../models/contact');
 
 const postContact = async (req, res, next) => {
   try {
-    const { name, email, phone } = req.body;
+    let { name, email, phone, favorite } = req.body;
 
-    if (!name || !email || !phone) {
+    if (!name) {
       return res.status(400).json({ message: 'missing required name field' });
     }
+    if (!email) {
+      return res.status(400).json({ message: 'missing required email field' });
+    }
+    if (!phone) {
+      return res.status(400).json({ message: 'missing required phone field' });
+    }
+    if (!favorite) {
+      favorite = true;
+    }
 
-    const contact = await addContact({ name, email, phone });
+    const contact = await Contact.create({ name, email, phone, favorite });
 
     res.status(201).json(contact);
   } catch (error) {
