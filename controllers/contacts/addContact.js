@@ -2,7 +2,7 @@
 
 const Contact = require('../../models/contact');
 
-const postContact = async (req, res, next) => {
+const addContact = async (req, res, next) => {
   try {
     let { name, email, phone, favorite } = req.body;
 
@@ -16,7 +16,7 @@ const postContact = async (req, res, next) => {
       return res.status(400).json({ message: 'missing required phone field' });
     }
     if (!favorite) {
-      favorite = true;
+      favorite = false;
     }
 
     const contact = await Contact.create({ name, email, phone, favorite });
@@ -27,4 +27,4 @@ const postContact = async (req, res, next) => {
   }
 };
 
-module.exports = postContact;
+module.exports = addContact;

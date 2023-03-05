@@ -1,7 +1,7 @@
 // const { removeContact } = require('../../models/contacts');
 const Contact = require('../../models/contact');
 
-const delContact = async (req, res, next) => {
+const removeContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
 
@@ -17,4 +17,4 @@ const delContact = async (req, res, next) => {
   }
 };
 
-module.exports = delContact;
+module.exports = removeContact;
