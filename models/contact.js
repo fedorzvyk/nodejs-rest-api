@@ -8,6 +8,7 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
+      // unique: true,
       required: [true, 'Set email for contact'],
     },
     phone: {
