@@ -31,7 +31,7 @@ const handleErrors = (error, data, next) => {
   next();
 };
 
-contactSchema.post('save', handleErrors);
+contactSchema.pre('save', handleErrors);
 
 const Contact = model('contact', contactSchema);
 
