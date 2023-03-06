@@ -8,7 +8,7 @@ const ctrl = require('../../controllers/users');
 
 router.post('/register', validation(userJoiSchema), ctrl.register);
 
-router.post('/login', ctrl.login);
+router.post('/login', validation(userJoiSchema), ctrl.login);
 
 router.post('/logout', ctrl.logout);
 
