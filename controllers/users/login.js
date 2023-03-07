@@ -23,21 +23,21 @@ const login = async (req, res, next) => {
       const error = new Error('Email or password is wrong');
       error.status = 401;
       next(error);
+    } else {
+      const payload = {
+        id: user._id,
+      };
+
+      const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+
+      res.status(200).json({
+        token,
+        user: {
+          email,
+          subscription: user.subscription,
+        },
+      });
     }
-
-    const payload = {
-      id: user._id,
-    };
-
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
-
-    res.status(200).json({
-      token,
-      user: {
-        email,
-        subscription: user.subscription,
-      },
-    });
   } catch (error) {
     next(error);
   }
