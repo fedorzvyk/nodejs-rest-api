@@ -1,9 +1,8 @@
 const User = require('../../models/user');
+const { Unauthorized } = require('http-errors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-
-dotenv.config();
+// require('dotenv').config();
 
 const { SECRET_KEY } = process.env;
 
@@ -12,17 +11,13 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      const error = new Error('Email or password is wrong');
-      error.status = 401;
-      next(error);
+      throw new Unauthorized('Email or password is wrong');
     }
 
     const comparePassword = bcrypt.compareSync(password, user.password);
 
     if (!comparePassword) {
-      const error = new Error('Email or password is wrong');
-      error.status = 401;
-      next(error);
+      throw new Unauthorized('Email or password is wrong');
     } else {
       const payload = {
         id: user._id,

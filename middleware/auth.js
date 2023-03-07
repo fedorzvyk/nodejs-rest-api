@@ -1,10 +1,8 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const { Unauthorized } = require('http-errors');
+require('dotenv').config();
 
-// FIXME: env settings
-
-dotenv.config();
 const { SECRET_KEY } = process.env;
 
 const auth = async (req, res, next) => {
@@ -12,9 +10,7 @@ const auth = async (req, res, next) => {
     const { authorization = '' } = req.headers;
     const [bearer, token] = authorization.split(' ');
     if (bearer !== 'Bearer') {
-      const error = new Error('Not authorized');
-      error.status = 401;
-      next(error);
+      throw new Unauthorized('Not authorized');
     }
 
     const { id } = jwt.verify(token, SECRET_KEY);
@@ -22,9 +18,7 @@ const auth = async (req, res, next) => {
     const user = await User.findById(id);
 
     if (!user || !user.token) {
-      const error = new Error('Not authorized');
-      error.status = 401;
-      next(error);
+      throw new Unauthorized('Not authorized');
     }
 
     req.user = user;
