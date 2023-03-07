@@ -11,6 +11,7 @@ const listContacts = async (req, res, next) => {
       skip,
       limit: Number(limit),
     }).populate('owner', '_id email subscription');
+
     res.status(200).json(contactsList);
   } catch (error) {
     next(error);

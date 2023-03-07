@@ -12,14 +12,15 @@ const ctrl = require('../../controllers/contacts');
 
 router.get('/', auth, ctrl.listContacts);
 
-router.get('/:contactId', isValid, ctrl.getById);
+router.get('/:contactId', auth, isValid, ctrl.getById);
 
 router.post('/', auth, validation(contactsSchema), ctrl.addContact);
 
-router.delete('/:contactId', isValid, ctrl.removeContact);
+router.delete('/:contactId', auth, isValid, ctrl.removeContact);
 
 router.put(
   '/:contactId',
+  auth,
   isValid,
   validation(contactsSchema),
   ctrl.updateContact
@@ -27,6 +28,7 @@ router.put(
 
 router.patch(
   '/:contactId/favorite',
+  auth,
   isValid,
   validation(contactsSchema),
   ctrl.updateStatusContact
