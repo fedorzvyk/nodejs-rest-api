@@ -13,6 +13,6 @@ router.post('/login', validation(userJoiSchema), ctrl.login);
 
 router.get('/current', auth, ctrl.getCurrent);
 
-router.post('/logout', ctrl.logout);
+router.post('/logout', auth, ctrl.logout);
 
 module.exports = router;
