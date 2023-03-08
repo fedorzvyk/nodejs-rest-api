@@ -6,19 +6,21 @@ const contactsSchema = require('../../schemas/contactsSchema');
 // const favoriteSchema = require('../../schemas/favoriteSchema');
 const validation = require('../../middleware/validation');
 const isValid = require('../../middleware/isValidId');
+const auth = require('../../middleware/auth');
 
 const ctrl = require('../../controllers/contacts');
 
-router.get('/', ctrl.listContacts);
+router.get('/', auth, ctrl.listContacts);
 
-router.get('/:contactId', isValid, ctrl.getById);
+router.get('/:contactId', auth, isValid, ctrl.getById);
 
-router.post('/', validation(contactsSchema), ctrl.addContact);
+router.post('/', auth, validation(contactsSchema), ctrl.addContact);
 
-router.delete('/:contactId', isValid, ctrl.removeContact);
+router.delete('/:contactId', auth, isValid, ctrl.removeContact);
 
 router.put(
   '/:contactId',
+  auth,
   isValid,
   validation(contactsSchema),
   ctrl.updateContact
@@ -26,6 +28,7 @@ router.put(
 
 router.patch(
   '/:contactId/favorite',
+  auth,
   isValid,
   validation(contactsSchema),
   ctrl.updateStatusContact
