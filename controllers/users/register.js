@@ -11,7 +11,7 @@ const register = async (req, res, next) => {
       throw new Conflict('Email in use');
     }
 
-    const avatarURL = gravatar.url(email);
+    const avatarURL = gravatar.url(email, { protocol: 'http', s: '250' });
 
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 

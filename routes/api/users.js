@@ -18,8 +18,6 @@ router.post('/logout', auth, ctrl.logout);
 
 router.patch('/', auth, ctrl.updateSubscription);
 
-// router.post('/', upload.single('image'), ctrl.avatar);
-
-router.patch('/avatars', auth, upload.single('image'), ctrl.avatar);
+router.patch('/avatars', auth, upload.single('image'), ctrl.updateAvatar);
 
 module.exports = router;
