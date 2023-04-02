@@ -1,4 +1,5 @@
-const sendEmail = require('../../helpers/sendEmail');
+// const sendEmail = require('../../helpers/sendEmail');
+const sendEmailBySendGrid = require('../../helpers/sendEmailBySendGrid');
 const User = require('../../models/user');
 const { NotFound, BadRequest } = require('http-errors');
 
@@ -23,7 +24,8 @@ const resendVerifyEmail = async (req, res, next) => {
       subject: 'Verify your account on Phonebook',
       html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${user.verificationToken}">Click to verify email</a>`,
     };
-    await sendEmail(emailOptions);
+    // await sendEmail(emailOptions);
+    await sendEmailBySendGrid(emailOptions);
 
     res.status(200).json({
       message: 'Verification email sent',

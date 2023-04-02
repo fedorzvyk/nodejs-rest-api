@@ -2,7 +2,8 @@ const User = require('../../models/user');
 const { Conflict } = require('http-errors');
 const bcrypt = require('bcrypt');
 const gravatar = require('gravatar');
-const sendEmail = require('../../helpers/sendEmail');
+// const sendEmail = require('../../helpers/sendEmail');
+const sendEmailBySendGrid = require('../../helpers/sendEmailBySendGrid');
 const { nanoid } = require('nanoid');
 
 const register = async (req, res, next) => {
@@ -30,7 +31,8 @@ const register = async (req, res, next) => {
       subject: 'Verify your account on Phonebook',
       html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}">Click to verify email</a>`,
     };
-    await sendEmail(emailOptions);
+    // await sendEmail(emailOptions);
+    await sendEmailBySendGrid(emailOptions);
 
     res.status(201).json({
       user: {
